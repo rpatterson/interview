@@ -22,7 +22,7 @@ setup(name='interview',
       ],
       extras_require={'test': [
           # Testing tools
-          'coverage',
+          'coverage', 'nose',
 
           # Useful tool for static analysis
           'flake8',
