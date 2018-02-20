@@ -6,6 +6,12 @@ SHELL=/usr/bin/env bash -o pipefail
 
 build: .venv/lib/python3.6/site-packages/interview.egg-link
 
+# Run all tests
+test: build
+	.venv/bin/flake8
+	.venv/bin/coverage run setup.py test
+	.venv/bin/coverage report
+
 clean:
 	rm -rf .venv
 
@@ -19,11 +25,11 @@ clean:
 # Install the interview code in develop mode
 .venv/lib/python3.6/site-packages/interview.egg-link: \
 		setup.py setup.cfg .venv/bin/python3.6
-	.venv/bin/pip install -e . || (\
+	.venv/bin/pip install -e .[test] || (\
 		failure=$$? && \
 		rm .venv/lib/python3.6/site-packages/interview.egg-link && \
 		exit $$failure)
 
 
 ## Makefile administrivia
-.PHONY: build clean
+.PHONY: build test clean

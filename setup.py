@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-import sys, os
 
 version = '0.1'
 
@@ -8,7 +7,8 @@ setup(name='interview',
       description="Common scaffolding for Python interview excercises",
       long_description="""\
 """,
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      classifiers=[],
       keywords='python interviews code-tests',
       author='Ross Patterson',
       author_email='me@rpatterson.net',
@@ -20,6 +20,16 @@ setup(name='interview',
       install_requires=[
           # -*- Extra requirements: -*-
       ],
+      extras_require={'test': [
+          # Testing tools
+          'coverage',
+
+          # Useful tool for static analysis
+          'flake8',
+
+          # Debug tools
+          'ipdb',
+      ], },
       entry_points="""
       # -*- Entry points: -*-
       """,
