@@ -19,7 +19,7 @@ setup(name='interview',
       zip_safe=False,
       install_requires=[
           # Django web application framework and REST API support
-          'Django',
+          'Django', 'django-nose',
       ],
       extras_require={'test': [
           # Testing tools

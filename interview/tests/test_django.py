@@ -17,4 +17,3 @@ class TestDjango(test.TestCase):
         """
         response = self.client.get(urls.reverse('admin:index'))
         self.assertEqual(response.status_code, 302)
-        
