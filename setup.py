@@ -18,7 +18,8 @@ setup(name='interview',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
+          # Django web application framework and REST API support
+          'Django',
       ],
       extras_require={'test': [
           # Testing tools

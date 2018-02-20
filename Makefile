@@ -4,12 +4,20 @@ SHELL=/usr/bin/env bash -o pipefail
 
 ## Top level targets
 
-build: .venv/lib/python3.6/site-packages/interview.egg-link
+build: .venv/lib/python3.6/site-packages/interview.egg-link migrate
+
+# Perform any necessary DB migrations
+migrate: .venv/lib/python3.6/site-packages/interview.egg-link
+	.venv/bin/python manage.py migrate --noinput
+
+# Run development django server for the API
+run: build migrate
+	.venv/bin/python manage.py runserver
 
 # Run all tests
 test: build
 	.venv/bin/flake8
-	.venv/bin/coverage run setup.py test
+	.venv/bin/coverage run manage.py test
 	.venv/bin/coverage report
 
 clean:
@@ -32,4 +40,4 @@ clean:
 
 
 ## Makefile administrivia
-.PHONY: build test clean
+.PHONY: build migrate run test clean
