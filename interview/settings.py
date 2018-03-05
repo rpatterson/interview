@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     # Django REST Framework
     'rest_framework',
+
+    'interview',
+
     # pdb.post_mortem() debugging of test failures/errors
     'django_nose',
 ]
