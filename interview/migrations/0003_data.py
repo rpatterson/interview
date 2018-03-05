@@ -9,7 +9,7 @@ from django.utils import dateparse
 
 def import_dpu_data(apps, schema_editor):
     """
-    Create necessary initial objects and import measurements from CSV.
+    Create necessary initial objects and import passes from CSV.
     """
     # Create spaces as in the diagram
     Space = apps.get_model('interview', 'Space')
@@ -31,24 +31,24 @@ def import_dpu_data(apps, schema_editor):
         id=423, doorway=doorway_z,
         space_plus=space_a, space_minus=space_b)
 
-    # Load the CSV measurements
-    Measurement = apps.get_model('interview', 'Measurement')
-    measurements = []
+    # Load the CSV passes
+    Pass = apps.get_model('interview', 'Pass')
+    passes = []
     for idx, row in enumerate(csv.DictReader(open(os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
             'dpu_data.csv')))):
         row['timestamp'] = dateparse.parse_datetime(row['timestamp'])
         row['direction'] = row['direction'] == "1"
-        measurements.append(Measurement(
+        passes.append(Pass(
             id=idx + 1, doorway=DPU.objects.get(id=row['dpu_id']).doorway,
             **row))
-    Measurement.objects.bulk_create(measurements)
+    Pass.objects.bulk_create(passes)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('interview', '0001_initial'),
+        ('interview', '0002_pass_spaces'),
     ]
 
     operations = [

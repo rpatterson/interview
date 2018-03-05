@@ -53,35 +53,35 @@ class DPU(models.Model):
     space_plus = models.ForeignKey(
         verbose_name='plus measures into space',
         help_text='Which space or room does a +1 measurement '
-        'mean movement into',
+        'mean passing into',
         to=Space, related_name='dpus_plus',
         on_delete=models.SET_NULL, null=True, blank=True)
     space_minus = models.ForeignKey(
         verbose_name='minus measures into space',
         help_text='Which space or room does a -1 measurement '
-        'mean movement into',
+        'mean passing into',
         to=Space, related_name='dpus_minus',
         on_delete=models.SET_NULL, null=True, blank=True)
 
 
-class Measurement(models.Model):
+class Pass(models.Model):
     """
-    A in individual measurement from a DPU on a given doorway.
+    An in individual passing through a given doorway from a DPU.
     """
 
     doorway = models.ForeignKey(
-        verbose_name='measurement doorway',
-        help_text='Which doorway did this measurement come from at the time',
+        verbose_name='doorway',
+        help_text='Which doorway did the person pass through',
         # TODO Should deleting a doorway delete the measurements
         to=Doorway, on_delete=models.CASCADE)
     dpu = models.ForeignKey(
-        verbose_name='measurement dpu',
-        help_text='Which dpu took this measurement at the time',
+        verbose_name='DPU',
+        help_text='Which DPU measured the passing at the time',
         to=DPU, on_delete=models.SET_NULL, null=True, blank=True)
 
     timestamp = models.DateTimeField(
-        verbose_name='measurement timestamp',
-        help_text='The date and time this measurement was taken')
+        verbose_name='timestamp',
+        help_text='The date and time the person passed')
     direction = models.BooleanField(
-        verbose_name='measurement direction',
+        verbose_name='direction',
         help_text='The direction the DPU was passed')

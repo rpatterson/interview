@@ -24,47 +24,47 @@ class TestDensityModels(test.TestCase):
         doorway_z = models.Doorway.objects.get(name='Doorway Z')
         dpu_423 = models.DPU.objects.get(id=423)
         # TODO relies on DB insertion order
-        first_measurement = models.Measurement.objects.get(id=1)
-        second_measurement = models.Measurement.objects.get(id=2)
+        first_pass = models.Pass.objects.get(id=1)
+        second_pass = models.Pass.objects.get(id=2)
 
         rows = list(csv.DictReader(open(os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
             'dpu_data.csv'))))
 
         self.assertTrue(
-            hasattr(first_measurement, 'timestamp'),
-            'Measurement missing timestamp attribute/field/column')
+            hasattr(first_pass, 'timestamp'),
+            'Pass missing timestamp attribute/field/column')
         self.assertIsInstance(
-            first_measurement.timestamp, datetime.datetime,
-            'Measurement timestamp is not a DateTime')
+            first_pass.timestamp, datetime.datetime,
+            'Pass timestamp is not a DateTime')
         self.assertEqual(
-            first_measurement.timestamp,
+            first_pass.timestamp,
             dateparse.parse_datetime(rows[0]['timestamp']),
-            'Measurement timestamp is not a DateTime')
+            'Pass timestamp is not a DateTime')
         self.assertTrue(
-            hasattr(first_measurement, 'direction'),
-            'Measurement missing direction attribute/field/column')
+            hasattr(first_pass, 'direction'),
+            'Pass missing direction attribute/field/column')
         self.assertIsInstance(
-            first_measurement.direction, bool,
-            'Measurement direction is not a boolean')
+            first_pass.direction, bool,
+            'Pass direction is not a boolean')
         self.assertTrue(
-            first_measurement.direction,
-            'Wrong measurement direction')
+            first_pass.direction,
+            'Wrong pass direction')
         self.assertFalse(
-            second_measurement.direction,
-            'Wrong measurement direction')
+            second_pass.direction,
+            'Wrong pass direction')
         self.assertTrue(
-            hasattr(first_measurement, 'dpu'),
-            'Measurement missing DPU relationship')
+            hasattr(first_pass, 'dpu'),
+            'Pass missing DPU relationship')
         self.assertEqual(
-            first_measurement.dpu, dpu_423,
-            'Wrong measurement related DPU')
+            first_pass.dpu, dpu_423,
+            'Wrong pass related DPU')
         self.assertTrue(
-            hasattr(first_measurement, 'doorway'),
-            'Measurement missing doorway relationship')
+            hasattr(first_pass, 'doorway'),
+            'Pass missing doorway relationship')
         self.assertEqual(
-            first_measurement.doorway, doorway_z,
-            'Wrong measurement related doorway')
+            first_pass.doorway, doorway_z,
+            'Wrong pass related doorway')
 
     def test_dpu_empty_spaces_constraint(self):
         """
