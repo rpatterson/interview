@@ -72,3 +72,14 @@ I'm beginning to suspect that the way I'm modeling doorway and DPU
 directionality may be redundant in terms of the minimum required to
 interpret the measurements.  I'm going to leave it as is for the
 moment since the relationships still do reflect "reality".
+
+I'm assuming that a "count" means the number of passes in either
+direction over a given time period.  You can't get the realtime or
+historical number of people in a room without some way to know when
+the space was last empty, and given that there may be holes in the
+data that doesn't seem feasible.  So i'm not sure what "realtime"
+means.  For now, I'll assume "realtime" just means a period of time in
+relation to now, IOW, the last hour or last day.
+
+Oh wait, we have to record the directionality of the DPU at the time
+we record a measurement.  Rethinking the schema.

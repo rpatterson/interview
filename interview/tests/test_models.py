@@ -21,9 +21,9 @@ class TestDensityModels(test.TestCase):
         """
         Test all the Density objects and their relationships.
         """
+        space_a = models.Space.objects.get(name='Space A')
+        space_b = models.Space.objects.get(name='Space B')
         doorway_z = models.Doorway.objects.get(name='Doorway Z')
-        dpu_423 = models.DPU.objects.get(id=423)
-        # TODO relies on DB insertion order
         first_pass = models.Pass.objects.get(id=1)
         second_pass = models.Pass.objects.get(id=2)
 
@@ -41,30 +41,49 @@ class TestDensityModels(test.TestCase):
             first_pass.timestamp,
             dateparse.parse_datetime(rows[0]['timestamp']),
             'Pass timestamp is not a DateTime')
-        self.assertTrue(
-            hasattr(first_pass, 'direction'),
-            'Pass missing direction attribute/field/column')
-        self.assertIsInstance(
-            first_pass.direction, bool,
-            'Pass direction is not a boolean')
-        self.assertTrue(
-            first_pass.direction,
-            'Wrong pass direction')
-        self.assertFalse(
-            second_pass.direction,
-            'Wrong pass direction')
-        self.assertTrue(
-            hasattr(first_pass, 'dpu'),
-            'Pass missing DPU relationship')
-        self.assertEqual(
-            first_pass.dpu, dpu_423,
-            'Wrong pass related DPU')
+
         self.assertTrue(
             hasattr(first_pass, 'doorway'),
             'Pass missing doorway relationship')
         self.assertEqual(
             first_pass.doorway, doorway_z,
             'Wrong pass related doorway')
+
+        self.assertTrue(
+            hasattr(first_pass, 'space_in'),
+            'Pass missing which space was entered')
+        self.assertEqual(
+            first_pass.space_in, space_a,
+            'Wrong pass space entered')
+        self.assertTrue(
+            hasattr(first_pass, 'space_out'),
+            'Pass missing which space was entered')
+        self.assertEqual(
+            first_pass.space_out, space_b,
+            'Wrong pass space entered')
+        self.assertEqual(
+            second_pass.space_in, space_b,
+            'Wrong pass space entered')
+        self.assertEqual(
+            second_pass.space_out, space_a,
+            'Wrong pass space entered')
+
+    def test_realtime_space_count(self):
+        """
+        A space can return the count of people in it at the moment.
+        """
+        space_a = models.Space.objects.get(name='Space A')
+        counts = space_a.count_passes(
+            datetime.datetime(year=2018, month=3, day=1))
+        self.assertIsInstance(
+            counts, tuple, 'Wrong counts return type')
+        self.assertEqual(
+            len(counts), 2, 'Wrong number of counts return values')
+        entries, exits = counts
+        self.assertEqual(
+            entries, 95, 'Wrong number of entries')
+        self.assertEqual(
+            exits, 107, 'Wrong number of exits')
 
     def test_dpu_empty_spaces_constraint(self):
         """

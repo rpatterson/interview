@@ -6,6 +6,8 @@ import csv
 from django.db import migrations
 from django.utils import dateparse
 
+from interview import models
+
 
 def import_dpu_data(apps, schema_editor):
     """
@@ -32,23 +34,17 @@ def import_dpu_data(apps, schema_editor):
         space_plus=space_a, space_minus=space_b)
 
     # Load the CSV passes
-    Pass = apps.get_model('interview', 'Pass')
-    passes = []
     for idx, row in enumerate(csv.DictReader(open(os.path.join(
             os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
             'dpu_data.csv')))):
         row['timestamp'] = dateparse.parse_datetime(row['timestamp'])
-        row['direction'] = row['direction'] == "1"
-        passes.append(Pass(
-            id=idx + 1, doorway=DPU.objects.get(id=row['dpu_id']).doorway,
-            **row))
-    Pass.objects.bulk_create(passes)
+        models.Pass.objects.create(id=idx + 1, **row)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('interview', '0002_pass_spaces'),
+        ('interview', '0003_pass_direction'),
     ]
 
     operations = [
