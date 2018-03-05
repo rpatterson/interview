@@ -21,7 +21,7 @@ test: build
 	.venv/bin/coverage report
 
 clean:
-	rm -rf .venv
+	rm -rf .venv db.sqlite3
 
 
 ## Real targets
