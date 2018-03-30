@@ -21,6 +21,9 @@ setup(name='interview',
           # -*- Extra requirements: -*-
       ],
       extras_require={'test': [
+          # NPL library
+          'textblob',
+
           # Testing tools
           'coverage', 'nose',
 

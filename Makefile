@@ -4,7 +4,7 @@ SHELL=/usr/bin/env bash -o pipefail
 
 ## Top level targets
 
-build: .venv/lib/python3.6/site-packages/interview.egg-link
+build: .venv/lib/python3.6/site-packages/interview.egg-link $HOME/nltk_data
 
 # Run all tests
 test: build
@@ -29,6 +29,12 @@ clean:
 		failure=$$? && \
 		rm .venv/lib/python3.6/site-packages/interview.egg-link && \
 		exit $$failure)
+
+# Download the NLTK corpa
+# TODO Figure out how to make this repeatable.  IOW, subsequent runs
+# should not download a newer version of the corpa.
+$HOME/nltk_data:
+	.venv/bin/python -m textblob.download_corpora
 
 
 ## Makefile administrivia
