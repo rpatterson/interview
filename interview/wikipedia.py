@@ -33,7 +33,22 @@ class InputText(str):
         # first access to avoid the TextBlob processing time if ever
         # there was significant use where only some of the attributes
         # are referenced.  Before doing so, confirm that TextBlob
-        # doesn't already to laze processing
+        # doesn't already to lazy processing
+
+        # Map answers to their sentences so we can compare questions
+        # to prospective sentences
+        self.answer_sentence_words = {}
+        for sentence in self.paragraph.sentences:
+            for answer in self.answers:
+                answer_words = tuple(answer.words)
+                # Normalize punctuation using spaces
+                if ' '.join(answer_words) in ' '.join(sentence.words):
+                    self.answer_sentence_words[answer] = set(sentence.words)
+                    break
+        # TODO Again, the above could be changed to be processed
+        # lazily on first access to avoid the processing time if ever
+        # there was significant use where `answer_sentence_words`
+        # isn't used
 
 
 def match_question_answers(input_text):

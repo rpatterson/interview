@@ -77,6 +77,30 @@ class TestWikipedia(unittest.TestCase):
             input_text.answers[0],
             'Missing parsed answer content')
 
+    def test_answer_sentence_words(self):
+        """
+        Test mapping answers to sentences in the paragraph.
+        """
+        input_text = wikipedia.InputText(self.input_text)
+
+        self.assertIn(
+            'answer_sentence_words', dir(input_text),
+            'Missing mapping of answers to sentences')
+        self.assertIsInstance(
+            input_text.answer_sentence_words, dict,
+            'Wrong mapping of answers to sentences type')
+        self.assertTrue(
+            input_text.answer_sentence_words,
+            'Missing mapping of answers to sentences content')
+        self.assertIsInstance(
+            input_text.answer_sentence_words[
+                ' '.join(input_text.answers[0].words)], set,
+            'Wrong mapping of answer to sentence type')
+        self.assertTrue(
+            input_text.answer_sentence_words[
+                ' '.join(input_text.answers[0].words)],
+            'Missing mapping of answer to sentence content')
+
     def test_sample(self):
         """
         Test the sample input against the sample output.
