@@ -93,12 +93,13 @@ class TestWikipedia(unittest.TestCase):
             input_text.answer_sentence_words,
             'Missing mapping of answers to sentences content')
         self.assertIsInstance(
-            input_text.answer_sentence_words[
-                ' '.join(input_text.answers[0].words)], set,
+            input_text.answer_sentence_words[wikipedia.NormalizedAnswer(
+                input_text.answers[0])],
+            set,
             'Wrong mapping of answer to sentence type')
         self.assertTrue(
-            input_text.answer_sentence_words[
-                ' '.join(input_text.answers[0].words)],
+            input_text.answer_sentence_words[wikipedia.NormalizedAnswer(
+                input_text.answers[0])],
             'Missing mapping of answer to sentence content')
 
     def test_sample(self):

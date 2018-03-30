@@ -18,3 +18,9 @@ a good NLP library to use for this problem.  I'm not an NLP expert, so
 if you intended me to implement something from scratch can you provide
 additional direction as to how to put bounds on the solution.  IOW,
 how to *not* end up reimplementing an existing NLP library.
+
+In the meantime, without teaching myself NLP more in depth, I opted
+for matching questions to the corresponding sentence in the paragraph
+based on the largest intersection of normalized words in common.  As I
+didn't end up using much of the NLP library, it might be worth it to
+remove that dependency if this were intended for actual use.

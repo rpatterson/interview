@@ -5,6 +5,30 @@ Utilities for processing Wikipedia text.
 import textblob
 
 
+class NormalizedAnswer(str):
+    """
+    An answer whose hash is based on the normalized words.
+    """
+
+    def __init__(self, answer):
+        """
+        An answer whose hash is based on the normalized words.
+        """
+        super(NormalizedAnswer, self).__init__()
+
+        self.original = answer
+
+        answer_words = tuple(answer.words)
+        # Normalize punctuation using spaces
+        self.normalized = ' '.join(answer_words)
+
+    def __hash__(self):
+        """
+        Use the nomalized answer as a hash, e.g. the key in a dictionary.
+        """
+        return hash(self.normalized)
+
+
 class InputText(str):
     """
     Parse the input format into a paragraph, questions and answers.
@@ -40,15 +64,36 @@ class InputText(str):
         self.answer_sentence_words = {}
         for sentence in self.paragraph.sentences:
             for answer in self.answers:
-                answer_words = tuple(answer.words)
-                # Normalize punctuation using spaces
-                if ' '.join(answer_words) in ' '.join(sentence.words):
-                    self.answer_sentence_words[answer] = set(sentence.words)
+                normalized_answer = NormalizedAnswer(answer)
+                if normalized_answer.normalized in ' '.join(
+                        sentence.words):
+                    self.answer_sentence_words[
+                        normalized_answer] = set(sentence.words)
                     break
         # TODO Again, the above could be changed to be processed
         # lazily on first access to avoid the processing time if ever
         # there was significant use where `answer_sentence_words`
         # isn't used
+
+    def match_question_answers(self):
+        """
+        Match answers to their questions based on the paragraph sentences.
+        """
+        question_answers = []
+        for question in self.questions:
+            word_intersection_max = 0
+            words = set(question.words)
+            best_answer = NormalizedAnswer(textblob.TextBlob(''))
+            for answer, sentence_words in self.answer_sentence_words.items():
+                sentence_intersection_len = len(
+                    words.intersection(sentence_words))
+                if sentence_intersection_len > word_intersection_max:
+                    word_intersection_max = sentence_intersection_len
+                    best_answer = answer
+
+            question_answers.append(best_answer.original)
+
+        return question_answers
 
 
 def match_question_answers(input_text):
@@ -56,4 +101,5 @@ def match_question_answers(input_text):
     Match answers to their questions based on the input paragraph.
     """
     parsed = InputText(input_text)
-    return '\n'.join(str(answer) for answer in parsed.answers) + '\n'
+    return '\n'.join(
+        str(answer) for answer in parsed.match_question_answers()) + '\n'
