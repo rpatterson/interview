@@ -20,7 +20,7 @@ class NormalizedAnswer(str):
 
         answer_words = tuple(answer.words)
         # Normalize punctuation using spaces
-        self.normalized = ' '.join(answer_words)
+        self.normalized = ' '.join(answer_words).lower()
 
     def __hash__(self):
         """
@@ -66,7 +66,7 @@ class InputText(str):
             for answer in self.answers:
                 normalized_answer = NormalizedAnswer(answer)
                 if normalized_answer.normalized in ' '.join(
-                        sentence.words):
+                        sentence.words).lower():
                     self.answer_sentence_words[
                         normalized_answer] = set(sentence.words)
                     break

@@ -8,6 +8,10 @@ Firstly, I copied the samples from the assignment into text files and
 wired up a failing test that takes the input and checks the output
 against the expected output.
 
+One of the answers mismatches the case used in the paragragh.  I'm
+assuming this is intentional and that matching of questions and
+answers should not be case sensitive.
+
 Looking at the paragraph, questions, and answers, there's no simple
 way, such as taking the N last words, to find the relevant portion of
 the question to search for in the paragraph.  That would be a bad idea
