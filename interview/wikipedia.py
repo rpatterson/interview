@@ -62,9 +62,9 @@ class InputText(str):
         # Map answers to their sentences so we can compare questions
         # to prospective sentences
         self.answer_sentence_words = {}
-        for sentence in self.paragraph.sentences:
-            for answer in self.answers:
-                normalized_answer = NormalizedAnswer(answer)
+        for answer in self.answers:
+            normalized_answer = NormalizedAnswer(answer)
+            for sentence in self.paragraph.sentences:
                 if normalized_answer.normalized in ' '.join(
                         sentence.words).lower():
                     self.answer_sentence_words[
