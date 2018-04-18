@@ -19,10 +19,10 @@ setup(name='interview',
       zip_safe=False,
       install_requires=[
           # -*- Extra requirements: -*-
-      ],
-      extras_require={'test': [
           # NPL library
           'textblob',
+      ],
+      extras_require={'test': [
 
           # Testing tools
           'coverage', 'nose',
