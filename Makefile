@@ -12,12 +12,16 @@ upgrade: clean .venv/bin/python3.6
 	.venv/bin/pip install -U .
 	.venv/bin/pip freeze >requirements.txt
 
+# Run the debug server
+run: build
+	FLASK_DEBUG=1 .venv/bin/flask run
+
 # Run all tests
 test: build
 	.venv/bin/flake8
 	.venv/bin/coverage run setup.py test
 	.venv/bin/coverage report
-	docker-compose run python setup.py test
+	docker-compose run flask setup.py test
 
 clean:
 	docker-compose down --rmi all -v
@@ -40,4 +44,4 @@ clean:
 
 
 ## Makefile administrivia
-.PHONY: build upgrade test clean
+.PHONY: build upgrade run test clean

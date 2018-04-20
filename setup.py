@@ -18,7 +18,8 @@ setup(name='interview',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
+          # Web framework
+          'Flask',
       ],
       extras_require={'test': [
           # Testing tools

@@ -7,5 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+EXPOSE 5000
 ENTRYPOINT [ "python" ]
-CMD [ "-c", "print('Hello, world.')" ]
+CMD [ "-m", "flask", "run", "--host=0.0.0.0" ]
