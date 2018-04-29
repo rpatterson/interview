@@ -6,6 +6,11 @@ SHELL=/usr/bin/env bash -o pipefail
 
 build: .venv/lib/python3.6/site-packages/interview.egg-link
 
+# Upgrade all requirements to the latest versions allowed by setup.py
+upgrade: clean .venv/bin/python3.6
+	.venv/bin/pip install -U .
+	.venv/bin/pip freeze >requirements.txt
+
 # Run all tests
 test: build
 	.venv/bin/flake8
@@ -32,4 +37,4 @@ clean:
 
 
 ## Makefile administrivia
-.PHONY: build test clean
+.PHONY: build upgrade test clean
