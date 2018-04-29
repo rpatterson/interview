@@ -5,6 +5,7 @@ SHELL=/usr/bin/env bash -o pipefail
 ## Top level targets
 
 build: .venv/lib/python3.6/site-packages/interview.egg-link
+	docker-compose build
 
 # Upgrade all requirements to the latest versions allowed by setup.py
 upgrade: clean .venv/bin/python3.6
@@ -16,8 +17,10 @@ test: build
 	.venv/bin/flake8
 	.venv/bin/coverage run setup.py test
 	.venv/bin/coverage report
+	docker-compose run python setup.py test
 
 clean:
+	docker-compose down --rmi all -v
 	rm -rf .venv
 
 
