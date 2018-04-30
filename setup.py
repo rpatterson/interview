@@ -20,6 +20,8 @@ setup(name='interview',
       install_requires=[
           # Web framework
           'Flask', 'Flask-SQLAlchemy',
+          # REST API framework
+          'Flask-RESTful',
       ],
       extras_require={'test': [
           # Testing tools

@@ -22,5 +22,5 @@ class FlaskTestCase(unittest.TestCase):
         """
         response = self.app.get('/')
         self.assertEqual(
-            response.get_data(as_text=True), interview.ROOT_RESPONSE,
+            response.get_json(), interview.ROOT_RESPONSE,
             'Wrong root response content')
