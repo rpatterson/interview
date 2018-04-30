@@ -2,14 +2,14 @@ from setuptools import setup, find_packages
 
 version = '0.1'
 
-setup(name='interview',
+setup(name='verkada-assignment-api',
       version=version,
-      description="Common scaffolding for Python interview excercises",
+      description="The camera log API in the Verkada coding assignment.",
       long_description="""\
 """,
       # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[],
-      keywords='python interviews code-tests',
+      keywords='python verkada',
       author='Ross Patterson',
       author_email='me@rpatterson.net',
       url='https://github.com/rpatterson/interview',
