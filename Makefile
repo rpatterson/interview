@@ -5,6 +5,9 @@ SHELL=/usr/bin/env bash -o pipefail
 ## Top level targets
 
 build: .venv/lib/python3.6/site-packages/interview.egg-link
+# Initialize/update the DB
+	.venv/bin/python create_db.py
+# Build the containers
 	docker-compose build
 
 # Upgrade all requirements to the latest versions allowed by setup.py
@@ -25,6 +28,7 @@ test: build
 
 clean:
 	docker-compose down --rmi all -v
+	rm -rf db.sqlite3
 	rm -rf .venv
 
 
