@@ -30,7 +30,7 @@ setup(name='verkada-assignment-camera',
           # Debug tools
           'ipdb',
       ], },
-      entry_points="""
-      # -*- Entry points: -*-
-      """,
+      entry_points=dict(
+          console_scripts=['verkada-camera = camera:main'],
+      ),
       )

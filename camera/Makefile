@@ -13,6 +13,10 @@ upgrade: clean .venv/bin/python3.6
 	.venv/bin/pip install -U .
 	.venv/bin/pip freeze >requirements.txt
 
+# Run the camera sumulation
+run: build
+	.venv/bin/verkada-camera
+
 # Run all tests
 test: build
 	.venv/bin/flake8
