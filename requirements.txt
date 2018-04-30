@@ -1,5 +1,6 @@
 click==6.7
 Flask==1.0.2
+Flask-SQLAlchemy==2.3.2
 # Exclude this package installed from checkout
 #interview==0.1.dev0
 itsdangerous==0.24
@@ -8,4 +9,5 @@ MarkupSafe==1.0
 # Workaround Ubuntu metadata bug:
 # https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1635463
 #pkg-resources==0.0.0
+SQLAlchemy==1.2.7
 Werkzeug==0.14.1

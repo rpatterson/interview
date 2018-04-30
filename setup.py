@@ -19,7 +19,7 @@ setup(name='interview',
       zip_safe=False,
       install_requires=[
           # Web framework
-          'Flask',
+          'Flask', 'Flask-SQLAlchemy',
       ],
       extras_require={'test': [
           # Testing tools
