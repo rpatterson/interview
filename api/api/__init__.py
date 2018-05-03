@@ -10,6 +10,7 @@ from flask_sqlalchemy import SQLAlchemy
 import flask_restful
 
 from . import camera
+from . import user
 
 logging.basicConfig(level=logging.INFO)
 
@@ -29,6 +30,7 @@ class HelloWorld(flask_restful.Resource):
 
 api.add_resource(HelloWorld, '/')
 
-
 api.add_resource(camera.CameraLongPoll, '/camera/poll/')
 api.add_resource(camera.CameraLogsResponse, '/camera/logs/')
+
+api.add_resource(user.UserCameraLogs, '/logs/')
