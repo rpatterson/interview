@@ -6,6 +6,7 @@ import asyncio
 import logging
 
 from . import eventlog
+from . import longpolling
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +22,10 @@ def main():  # pragma: no cover
     event_log = eventlog.CameraEventLog()
     logger.info('Starting camera event log')
     loop.create_task(event_log.run())
+
+    poller = longpolling.CameraLongPoller(event_log)
+    logger.info('Starting camera long polling to the API')
+    loop.create_task(poller.run())
 
     loop.run_forever()
     loop.close()

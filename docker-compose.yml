@@ -6,3 +6,5 @@ services:
      - "5000:5000"
   camera:
     build: camera
+    depends_on:
+     - api

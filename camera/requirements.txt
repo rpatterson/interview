@@ -1,5 +1,10 @@
-# Exclude this package installed from checkout
-#verkada-assignment-camera==0.1.dev0
+certifi==2018.4.16
+chardet==3.0.4
+idna==2.6
 # Workaround Ubuntu metadata bug:
 # https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1635463
 #pkg-resources==0.0.0
+requests==2.18.4
+urllib3==1.22
+# Exclude this package installed from checkout
+#verkada-assignment-camera==0.1.dev0

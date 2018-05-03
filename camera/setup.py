@@ -18,7 +18,7 @@ setup(name='verkada-assignment-camera',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          # -*- Extra requirements: -*-
+          'requests',
       ],
       extras_require={'test': [
           # Testing tools

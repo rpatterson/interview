@@ -3,10 +3,15 @@ A minimal Flask application.
 """
 
 import os
+import logging
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import flask_restful
+
+from . import camera
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(
@@ -23,3 +28,7 @@ class HelloWorld(flask_restful.Resource):
 
 
 api.add_resource(HelloWorld, '/')
+
+
+api.add_resource(camera.CameraLongPoll, '/camera/poll/')
+api.add_resource(camera.CameraLogsResponse, '/camera/logs/')

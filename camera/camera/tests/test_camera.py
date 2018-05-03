@@ -5,6 +5,7 @@ Test that the local Python development environment is working.
 import unittest
 
 from camera import eventlog
+from camera import longpolling
 
 
 class TestCameraEventLog(unittest.TestCase):
@@ -47,3 +48,16 @@ class TestCameraEventLog(unittest.TestCase):
         self.assertEqual(
             events[1]['description'], second_description,
             'Wrong logged event content')
+
+    def test_camera_pollling_event_log(self):
+        """
+        The camera long poller has a reference to the event log.
+        """
+        event_log = eventlog.CameraEventLog()
+        poller = longpolling.CameraLongPoller(event_log=event_log)
+        self.assertIsInstance(
+            poller.event_log, eventlog.CameraEventLog,
+            'Wrong poller event log type')
+        self.assertIs(
+            poller.event_log, event_log,
+            'Wrong poller event log instance')
